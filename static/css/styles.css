@@ -1,0 +1,497 @@
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/* Estilo base para botones de acción <a> */
+a.action-button {
+    text-decoration: none;          /* Quitar subrayado */
+    color: #D35400;                  /* Naranjita oscuro */
+    background-color: #FDEBD0;       /* Fondo claro para contraste */
+    padding: 6px 12px;               /* Espaciado interno */
+    border-radius: 5px;              /* Bordes redondeados */
+    border: 1px solid #D35400;       /* Borde del mismo color */
+    font-weight: 500;                /* Texto un poco más grueso */
+    transition: all 0.2s ease;      /* Animación suave */
+}
+
+a.action-button2 {
+    text-decoration: none;
+    color: #D35400;
+    background-color: #FDEBD0;
+    padding: 6px 12px;
+    border-radius: 5px;
+    border: 1px solid #D35400;
+    font-weight: 500;
+    transition: all 0.2s ease;
+
+    /* 🔽 Posicionamiento fijo */
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;  /* por si hay fondos o imágenes */
+}
+
+
+/* Hover / foco */
+a.action-button:hover,
+a.action-button:focus {
+    background-color: #D35400;       /* Fondo naranja oscuro */
+    color: #ffffff;                  /* Texto blanco */
+    cursor: pointer;                 /* Indica clickeable */
+    text-decoration: none;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+h3 {
+    font-weight: 100;
+}
+
+/* LAYOUT CSS */
+.pure-img-responsive {
+    max-width: 100%;
+    height: auto;
+}
+
+#layout {
+    padding: 0;
+}
+
+.header {
+    text-align: center;
+    top: auto;
+    margin: 3em auto;
+}
+
+.sidebar {
+    background: rgb(61, 79, 93);
+    color: #fff;
+}
+
+.brand-title,
+.brand-tagline {
+    margin: 0;
+}
+.brand-title {
+    text-transform: uppercase;
+}
+.brand-tagline {
+    font-weight: 300;
+    color: rgb(176, 202, 219);
+}
+
+.nav-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.nav-item {
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+}
+.nav-item a {
+    background: transparent;
+    border: 2px solid rgb(176, 202, 219);
+    color: #fff;
+    margin-top: 1em;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 85%;
+}
+.nav-item a:hover,
+.nav-item a:focus {
+    border: 2px solid rgb(61, 146, 201);
+    text-decoration: none;
+}
+
+.content-subhead {
+    text-transform: uppercase;
+    color: #aaa;
+    border-bottom: 1px solid #eee;
+    padding: 0.4em 0;
+    font-size: 80%;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+}
+
+.content {
+    background-image: url('/static/img/portada.webp');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    background-repeat: no repeat;
+}
+
+body {
+    background-image: url('/static/img/portada.webp');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    background-repeat: no repeat;
+}
+
+.post {
+    padding-bottom: 2em;
+}
+.post-title {
+    font-size: 2em;
+    color: #222;
+    margin-bottom: 0.2em;
+}
+.post-avatar {
+    border-radius: 50px;
+    float: right;
+    margin-left: 1em;
+}
+.post-description {
+    font-family: Georgia, "Cambria", serif;
+    color: #444;
+    line-height: 1.8em;
+}
+.post-meta {
+    color: #999;
+    font-size: 90%;
+    margin: 0;
+}
+
+.post-category {
+    margin: 0 0.1em;
+    padding: 0.3em 1em;
+    color: #fff;
+    background: #999;
+    font-size: 80%;
+}
+    .post-category-design {
+        background: #5aba59;
+    }
+    .post-category-pure {
+        background: #4d85d1;
+    }
+    .post-category-yui {
+        background: #8156a7;
+    }
+    .post-category-js {
+        background: #df2d4f;
+    }
+
+.post-images {
+    margin: 1em 0;
+}
+.post-image-meta {
+    margin-top: -3.5em;
+    margin-left: 1em;
+    color: #fff;
+    text-shadow: 0 1px 1px #333;
+}
+
+.footer {
+    padding: 1em 0;
+}
+.footer a {
+    color: #ccc;
+    font-size: 80%;
+}
+.footer .pure-menu a:hover,
+.footer .pure-menu a:focus {
+    background: none;
+}
+
+@media (min-width: 48em) {
+    .content {
+        padding: 2em 3em 0;
+        margin-left: 25%;
+    }
+
+    .header {
+        margin: 80% 2em 0;
+        text-align: right;
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+    }
+
+    .footer {
+        text-align: center;
+    }
+}
+
+/* TABLA ESTILIZADA */
+table {
+    width: 100%;
+    border-collapse: collapse; /* Los recuadros se juntan */
+    margin-top: 2em;
+    background: #f0c185;
+    border: 1px solid #ccc;
+    font-size: 1em;
+}
+
+th, td {
+    padding: 1em;
+    text-align: left;
+    border-bottom: 1px solid #9c5a0f;
+}
+
+th {
+    background-color: #e07c2a;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.detalle-container {
+    background-image: url("/static/img/futbol-bg.jpg");
+    background-size: cover;
+    background-position: center;
+    padding: 2em;
+    min-height: 80vh;
+    color: #fff;
+}
+
+.detalle-box {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 2em;
+    border-radius: 1em;
+    max-width: 600px;
+    margin: auto;
+}
+
+.detalle-box ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.detalle-box li {
+    margin: 0.5em 0;
+    font-size: 1.1em;
+}
+
+.volver-link {
+    display: inline-block;
+    margin-top: 1em;
+    padding: 0.5em 1em;
+    background: #e07c2a;
+    color: white;
+    border-radius: 5px;
+}
+.volver-link:hover {
+    background: #c96a1f;
+    text-decoration: none;
+}
+
+/* CENTRAR LOGIN */
+/* General */
+body {
+    background-color: #f7f3f0;
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+/* Solo para la página de login */
+body.login-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/* Título en la parte superior con margen */
+h2 {
+    text-align: center;
+    color: #e07c2a;
+    margin: 2em 0 1em 0;       /* margen arriba y abajo */
+}
+
+/* Contenedor del login centrado horizontalmente */
+main {
+    background-color: #f0c185;
+    padding: 2em 3em;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    width: 350px;
+}
+
+
+form div {
+    margin-bottom: 1em;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.3em;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 0.5em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+button {
+    width: 100%;
+    padding: 0.7em;
+    border: none;
+    border-radius: 5px;
+    background-color: #e07c2a;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #c96a1f;
+}
+
+.error {
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Estilo para h1 tipo banner */
+h1.banner {
+    background-color: #D35400;     /* Naranjita oscuro */
+    color: #ffffff;                /* Texto blanco crudo */
+    padding: 12px 24px;            /* Espaciado interno */
+    border-radius: 4px;            /* Bordes ligeramente redondeados */
+    text-align: center;            /* Centrar texto */
+    font-family: 'Arial', sans-serif; /* Fuente limpia */
+    font-weight: 700;              /* Negrita para destacar */
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2); /* Sombra ligera */
+    margin-bottom: 20px;           /* Separación del contenido siguiente */
+}
+
+/* Sidebar fijo a la izquierda */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px;                 /* ancho del sidebar */
+    height: 100vh;                /* ocupa toda la altura */
+    background: rgb(61, 79, 93);  /* fondo gris azulado */
+    color: #fff;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+/* Título o nombre de la app */
+.sidebar .brand-title {
+    font-size: 1.2em;
+    text-transform: uppercase;
+    color: #FDEBD0;
+    margin-bottom: 1.5em;
+}
+
+/* Enlaces dentro del sidebar */
+.nav-list {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+.nav-item {
+    margin: 0.5em 0;
+    width: 100%;
+}
+
+.nav-item a {
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    color: #FDEBD0;
+    padding: 0.6em 1em;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+
+.nav-item a:hover {
+    background: #D35400;
+    color: #fff;
+}
+
+/* Main content ocupa el ancho restante */
+.content {
+    margin-left: 240px;           /* espacio para sidebar */
+    width: calc(100% - 240px);    /* ocupa todo el resto */
+    padding: 2em;
+    box-sizing: border-box;
+}
+
+/* Banner dentro del main */
+h1.banner {
+    background-color: #D35400;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 4px;
+    text-align: center;
+    width: 100%;                  /* ocupa todo el main */
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+/* Botones de acción dentro del main */
+.action-button {
+    display: inline-block;
+}
+
+/* Alinea los botones de admin a la derecha */
+.admin-buttons {
+    text-align: right;
+    margin-bottom: 1em;
+}
+
+/* Tablas ocupan todo el ancho del main */
+table {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.center-box {
+    max-width: 600px;          /* ancho máximo */
+    margin: 0 auto;            /* centra horizontal */
+    background-color: rgba(255,255,255,0.9); /* opcional, para destacar */
+    padding: 2em;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.content.center-vertical {
+    display: flex;
+    justify-content: center;  /* horizontal */
+    align-items: center;      /* vertical */
+    min-height: calc(100vh - 2em); /* ajusta según padding */
+}
+
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.login-box {
+    background-color: #f0c185;
+    padding: 2em 3em;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    width: 350px;
+}
+
+.login-title {
+    text-align: center;
+    color: #e07c2a;
+    margin-bottom: 1em;
+}

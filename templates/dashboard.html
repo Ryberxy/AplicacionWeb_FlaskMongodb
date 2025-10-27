@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+
+<!-- Sidebar lateral izquierdo -->
+<nav class="sidebar">
+  <h3 class="brand-title">EMPRESA</h3>
+  <ul class="nav-list">
+    <li class="nav-item"><a href="/">Inicio</a></li>
+    <li class="nav-item"><a href="/dashboard">Panel</a></li>
+
+    {% if admin %}
+      <li class="nav-item" style="margin-top: 1em;">
+        <a href="{{ url_for('crear_usuario') }}" class="action-button">Crear usuario</a>
+      </li>
+    {% endif %}
+
+    <li class="nav-item"><a href="{{ url_for('logout') }}">Cerrar sesión</a></li>
+  </ul>
+</nav>
+
+
+  <!-- Contenido principal -->
+  <main class="content">
+    <h1 class="banner">Panel de control</h1>
+
+    <!-- TABLA PRODUCTOS -->
+    <h2>Productos</h2>
+    <table>
+      <tr>
+        <th>Código de producto</th>
+        <th>Nombre</th>
+        <th>Tipo</th>
+        <th>Precio/unidad</th>
+        {% if admin %}<th>Acciones</th>{% endif %}
+      </tr>
+      {% for p in productos %}
+      <tr>
+        <td>{{ p.CodProducto }}</td>
+        <td>{{ p.Nombre }}</td>
+        <td>{{ p.Tipo }}</td>
+        <td>{{ p.PrecioUnitario }}</td>
+        {% if admin %}
+          <td>
+            <a href="{{ url_for('editar_producto', cod=p.CodProducto) }}" class="action-button">Editar</a>
+            <a href="{{ url_for('borrar_producto', cod=p.CodProducto) }}" class="action-button" onclick="return confirm('¿Seguro que quieres borrar este producto?')">Borrar</a>
+          </td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </table>
+
+    <!-- TABLA USUARIOS -->
+    <h2>Usuarios</h2>
+    <table>
+      <tr>
+        <th>Usuario</th>
+        <th>Contraseña</th>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Admin</th>
+        {% if admin %}<th>Acciones</th>{% endif %}
+      </tr>
+      {% for u in users %}
+      <tr>
+        <td>{{ u.username }}</td>
+        <td>{{ u.password }}</td>
+        <td>{{ u.nombre }}</td>
+        <td>{{ u.email }}</td>
+        <td>{{ u.admin }}</td>
+        {% if admin %}
+          <td>
+            <a href="{{ url_for('borrar_usuario', usuario=u.username) }}" class="action-button" onclick="return confirm('¿Seguro que quieres borrar este usuario?')">Borrar</a>
+          </td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </table>
+
+    <!-- TABLA CLIENTES -->
+    <h2>Clientes</h2>
+    <table>
+      <tr>
+        <th>DNI</th>
+        <th>Nombre</th>
+        <th>Fecha de alta</th>
+        {% if admin %}<th>Acciones</th>{% endif %}
+      </tr>
+      {% for c in clientes %}
+      <tr>
+        <td>{{ c.DNI_Cliente }}</td>
+        <td>{{ c.Nombre }}</td>
+        <td>{{ c.FechaAlta }}</td>
+        {% if admin %}
+          <td>
+            <!-- Aquí puedes añadir botones de editar/borrar clientes si quieres -->
+          </td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </table>
+
+    <!-- TABLA VENTAS -->
+    <h2>Ventas</h2>
+    <table>
+      <tr>
+        <th>Código de producto</th>
+        <th>DNI</th>
+        <th>Fecha de venta</th>
+        <th>Número de unidades</th>
+        {% if admin %}<th>Acciones</th>{% endif %}
+      </tr>
+      {% for v in ventas %}
+      <tr>
+        <td>{{ v.CodProducto }}</td>
+        <td>{{ v.DNI_Cliente }}</td>
+        <td>{{ v.FechaVenta }}</td>
+        <td>{{ v.NumUnidades }}</td>
+        {% if admin %}
+          <td>
+            <!-- Aquí puedes añadir botones de editar/borrar ventas si quieres -->
+          </td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </table>
+
+  </main>
+
+</body>
+</html>

@@ -1,0 +1,139 @@
+from flask import Flask, render_template, request, redirect, url_for, session
+from pymongo import MongoClient
+
+app = Flask(__name__)
+app.secret_key = "mi_clave_secreta"  # Necesaria para sesiones
+
+# Conexión a MongoDB
+client = MongoClient("mongodb://cliente:cliente@192.168.122.12:27017/empresa")
+db = client["empresa"]
+
+def login_user(usuario):
+    session["username"] = usuario["username"]
+    session["admin"] = bool(usuario.get("admin", False))
+    
+
+def logout_user():
+    session.pop("username", None)
+    session.pop("admin", None)
+
+@app.route('/')
+def devolver_login():
+    return render_template("login.html")
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        
+        # AQUÍ ESTA LA VULNERABILIDAD
+        payload = request.get_json(silent=True) 
+        
+        if payload:
+         
+            user = db.USUARIOS.find_one(payload) 
+            if user: 
+                login_user(user)
+                return redirect(url_for("dashboard"))
+            pass 
+
+    return render_template("login.html")
+
+
+@app.route("/dashboard")
+def dashboard():
+    if "username" not in session:
+        return redirect(url_for("login"))
+
+    productos = list(db.PRODUCTOS.find({}, {"_id": 0}))
+    clientes = list(db.CLIENTES.find({}, {"_id": 0}))
+    ventas = list(db.VENTAS.find({}, {"_id": 0}))
+    users = list(db.USUARIOS.find({}, {"_id": 0}))
+
+    return render_template("dashboard.html",
+                           productos=productos,
+                           users=users,
+                           clientes=clientes,
+                           ventas=ventas,
+                           admin=session.get("admin", False))
+
+@app.route("/producto/editar/<cod>", methods=["GET", "POST"])
+def editar_producto(cod):
+    if not session.get("admin"):
+        return "No tienes permisos", 403
+
+    producto = db.PRODUCTOS.find_one({"CodProducto": int(cod)})
+    if not producto:
+        return "Producto no encontrado", 404
+
+    if request.method == "POST":
+        nuevo_nombre = request.form["nombre"]
+        nuevo_tipo = request.form["tipo"]
+        nuevo_precio = float(request.form["precio"])
+
+        db.PRODUCTOS.update_one(
+            {"CodProducto": int(cod)},
+            {"$set": {
+                "Nombre": nuevo_nombre,
+                "Tipo": nuevo_tipo,
+                "PrecioUnitario": nuevo_precio
+            }}
+        )
+        return redirect(url_for("dashboard"))
+
+    return render_template("editar_producto.html", producto=producto)
+
+
+@app.route("/producto/borrar/<cod>")
+def borrar_producto(cod):
+    if not session.get("admin"):
+        return "No tienes permisos", 403
+
+    db.PRODUCTOS.delete_one({"CodProducto": int(cod)})
+    return redirect(url_for("dashboard"))
+
+@app.route("/usuario/borrar/<usuario>")
+def borrar_usuario(usuario):
+    if not session.get("admin"):
+        return "No tienes permisos", 403
+
+    db.USUARIOS.delete_one({"username": str(usuario)})
+    return redirect(url_for("dashboard"))
+
+@app.route("/crear_usuario", methods=["GET", "POST"])
+def crear_usuario():
+    print("SESSION:", session)
+    # Solo admins pueden acceder
+    if "username" not in session or not session.get("admin"):
+        return redirect(url_for("dashboard"))  # redirige si no es admin
+    
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]  # texto plano
+        nombre = request.form["nombre"]
+        email = request.form["email"]
+        admin = "admin" in request.form  # checkbox
+
+        # Verificar si ya existe
+        if db.USUARIOS.find_one({"username": username}):
+            return render_template("crear_usuario.html", error="El usuario ya existe")
+
+        # Insertar nuevo usuario SIN cifrado
+        db.USUARIOS.insert_one({
+            "username": username,
+            "password": password,
+            "nombre": nombre,
+            "email": email,
+            "admin": admin
+        })
+
+        return redirect(url_for("dashboard"))
+
+    return render_template("crear_usuario.html")
+
+@app.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for("login"))
+
+if __name__ == "__main__":
+    app.run(debug=True)
