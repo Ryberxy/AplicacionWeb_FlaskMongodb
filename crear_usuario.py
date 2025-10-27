@@ -18,8 +18,8 @@ es_admin = input("¿Es administrador? (s/n): ").lower() == "s"
 
 # Verifica si ya existe
 if db.USUARIOS.find_one({"username": username}):
-    print("⚠️  Ya existe un usuario con ese nombre.")
+    print("Ya existe un usuario con ese nombre.")
 else:
     nuevo_usuario = Usuario(username, password, nombre, email, es_admin)
     db.USUARIOS.insert_one(nuevo_usuario.to_dict())
-    print("✅ Usuario creado correctamente.")
+    print("Usuario creado correctamente.")
