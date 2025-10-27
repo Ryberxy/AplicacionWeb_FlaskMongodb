@@ -1,6 +1,6 @@
 from pymongo import MongoClient
 from models import Usuario
-from getpass import getpass  # Para ocultar la contraseña al escribirla
+from getpass import getpass  # Este módulo sirve para ocultar la contraseña al escribirla
 
 # Conexión con MongoDB
 client = MongoClient("mongodb://cliente:cliente@192.168.122.12:27017/empresa")
@@ -13,8 +13,7 @@ nombre = input("Nombre completo: ")
 email = input("Email: ")
 password = getpass("Contraseña: ")
 
-# Pregunta si será admin
-es_admin = input("¿Es administrador? (s/n): ").lower() == "s"
+es_admin = input("¿Será administrador? (s/n): ").lower() == "s"
 
 # Verifica si ya existe
 if db.USUARIOS.find_one({"username": username}):
