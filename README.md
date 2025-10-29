@@ -42,3 +42,6 @@ Podemos hacerlo desde dentro de la aplicación, pero si aún no hay ninguno crea
   python3 crear_usuarios.py
 </pre>
 
+### FUNCIONAMIENTO
+
+
